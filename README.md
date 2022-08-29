@@ -1,2 +1,2 @@
 # bibliographer
-A simple way to make you bibliography
+A simple way to make your bibliography
