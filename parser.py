@@ -147,7 +147,7 @@ class Article(Publication):
         """
         link = []
         for elem in pattern:
-            if (elem[0].isdigit() and len(elem) > 1) or elem[0].isalpha():
+            if (elem[0].isdigit() and len(elem) > 1) or (elem[0].isalpha() and len(elem) > 3):
                 if elem[0].isalpha():
                     if elem == 'authors':
                         link.append(self.get_all_authors())
@@ -166,6 +166,8 @@ class Article(Publication):
                     # raise SystemExit
             elif not elem[0].isdigit() and not elem[0].isalpha():
                 link.append(str(elem))
+            elif elem[0].isalpha() and len(elem) <= 3:
+                link.append(str(elem.capitalize()))
             else:
                 print('something went wrong')
         return ''.join(link)
@@ -180,7 +182,7 @@ if __name__ == '__main__':
         if doi == 'end':
             break
         abstarct = Article(doi)
-        user_pattern = ['1_author', '.', ' ', 'title', '.', ' ', '//', ' ', 'authors', '.', '/', ' ', 'journal_title', ',', ' ', 'year', ',', ' ', 'volume', '(', 'issue', ')', ',', ' ', 'pages']
+        user_pattern = ['1_author', '.', ' ', 'title', '.', ' ', '//', ' ', 'authors', '.', ' ', '/', ' ', 'journal_title', ',', ' ', 'year', ',', ' ', 'volume', '(', 'issue', ')', ',', ' ', 'pages', '.']
         # abstarct.clear_title()
         a = abstarct.make_bibliography(user_pattern)
         print(a)
